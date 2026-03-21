@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Battery Bank - Latest Mobile Phones & Accessories</title>
 
+  <!-- .png format (agar png hai to) -->
+  <link rel="icon" type="image/png" href="./Images/favicon.png">
+
+  <!-- Mobile home screen icon -->
+  <link rel="apple-touch-icon" href="./Images/apple-touch-icon.png">
+
   <!-- ============================================================
      SEO META TAGS
 ============================================================ -->
@@ -263,6 +269,139 @@
 
     #toast.error {
       background: var(--danger);
+    }
+
+    /* ================================================================
+   WHATSAPP FLOATING BUTTON
+   — Poori website par neeche right corner mein dikhega
+================================================================ */
+
+    /* ---- Main WhatsApp Button ---- */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 8888;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    /* ---- Green Circle Button ---- */
+    .whatsapp-btn {
+      width: 58px;
+      height: 58px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+      cursor: pointer;
+      border: none;
+      transition: transform .22s, box-shadow .22s, background .2s;
+      text-decoration: none;
+    }
+
+    .whatsapp-btn:hover {
+      background: #1ebe5d;
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 10px 32px rgba(37, 211, 102, 0.55);
+    }
+
+    .whatsapp-btn i {
+      font-size: 30px;
+      color: #fff;
+      line-height: 1;
+    }
+
+    /* ---- Pulse Ring Animation ---- */
+    .whatsapp-btn::before {
+      content: '';
+      position: absolute;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: rgba(37, 211, 102, 0.35);
+      animation: wa-pulse 2s ease-out infinite;
+    }
+
+    @keyframes wa-pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      70% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
+    }
+
+    /* ---- Tooltip Label ---- */
+    .whatsapp-tooltip {
+      background: #111827;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 13px;
+      border-radius: 8px;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      transform: translateX(10px);
+      transition: opacity .25s, transform .25s;
+      pointer-events: none;
+      position: relative;
+    }
+
+    .whatsapp-tooltip::after {
+      content: '';
+      position: absolute;
+      right: -7px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 5px solid transparent;
+      border-left-color: #111827;
+      border-right: 0;
+    }
+
+    .whatsapp-fab:hover .whatsapp-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ---- Mobile: button thoda chota ---- */
+    @media (max-width: 480px) {
+      .whatsapp-fab {
+        bottom: 18px;
+        right: 16px;
+      }
+
+      .whatsapp-btn {
+        width: 50px;
+        height: 50px;
+      }
+
+      .whatsapp-btn i {
+        font-size: 26px;
+      }
+
+      .whatsapp-btn::before {
+        width: 50px;
+        height: 50px;
+      }
+
+      .whatsapp-tooltip {
+        font-size: 12px;
+        padding: 6px 11px;
+      }
     }
 
     /* ================================================================
@@ -3737,6 +3876,28 @@
   <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Done!</span></div>
 
   <!-- ================================================================
+     WHATSAPP FLOATING BUTTON
+     — Poori website par bottom-right corner mein dikhega
+     — Number change karne ke liye: href mein 923452288856 ki jagah
+       apna number likho (0 hatao, 92 lagao)
+     — Misaal: 0312-3456789  →  923123456789
+================================================================ -->
+  <div class="whatsapp-fab">
+
+    <!-- Tooltip — Mouse hover karne par dikhega -->
+    <div class="whatsapp-tooltip">
+      💬 Chat on WhatsApp
+    </div>
+
+    <!-- ✅ WHATSAPP NUMBER YAHAN CHANGE KARO -->
+    <a class="whatsapp-btn" href="https://wa.me/923452288856" target="_blank" rel="noopener noreferrer"
+      title="Chat with us on WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+  </div>
+
+  <!-- ================================================================
      NAVBAR  (shown on all pages except admin dashboard)
 ================================================================ -->
   <nav class="navbar" id="main-navbar">
@@ -3820,8 +3981,7 @@
           </div>
         </div>
         <div class="hero-img">
-          <img src="./Images/hero-image.png" alt="Latest Smartphones"
-            id="hero-image">
+          <img src="./Images/hero-image.png" alt="Latest Smartphones" id="hero-image">
         </div>
       </div>
     </section>
@@ -3958,7 +4118,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <!-- Change logo/name below -->
-          <h2><img src="./Images/Footer-logo.png" alt="Battery Bank" style="height: 40px; width: auto; object-fit: contain;"> Battery Bank</h2>
+          <h2><i class="fa-solid fa-bolt"></i> Battery Bank</h2>
           <p>Your one-stop shop for the latest mobile devices, power banks, chargers and accessories at the best prices.
           </p>
           <div class="social-icons" style="margin-top:18px;">
@@ -5705,68 +5865,58 @@
       alt="Samsung Galaxy S23">
 
     <!-- Product 3 — Xiaomi Redmi Note 12 -->
-    <img id="img-product-3" src="./Images/Xiaomi-Redmi-Note-12.jpg"
-      alt="Xiaomi Redmi Note 12">
+    <img id="img-product-3" src="./Images/Xiaomi-Redmi-Note-12.jpg" alt="Xiaomi Redmi Note 12">
 
     <!-- Product 4 — Realme C55 -->
-    <img id="img-product-4" src="./Images/Realme-C55.jpg"
-      alt="Realme C55">
+    <img id="img-product-4" src="./Images/Realme-C55.jpg" alt="Realme C55">
 
     <!-- ══════════════════════════════════════════
        🔋 POWER BANKS
   ══════════════════════════════════════════ -->
 
     <!-- Product 5 — Power Bank 20000mAh -->
-    <img id="img-product-5" src="./Images/Power-Bank-20000mAh.jpg"
-      alt="Power Bank 20000mAh">
+    <img id="img-product-5" src="./Images/Power-Bank-20000mAh.jpg" alt="Power Bank 20000mAh">
 
     <!-- Product 6 — Power Bank 10000mAh -->
-    <img id="img-product-6" src="./Images/Power-Bank-10000mAh.jpg"
-      alt="Power Bank 10000mAh">
+    <img id="img-product-6" src="./Images/Power-Bank-10000mAh.jpg" alt="Power Bank 10000mAh">
 
     <!-- ══════════════════════════════════════════
        🔌 CHARGERS
   ══════════════════════════════════════════ -->
 
     <!-- Product 7 — 65W Fast Charger -->
-    <img id="img-product-7" src="./Images/65W-Fast-Charger.jpg"
-      alt="65W Fast Charger">
+    <img id="img-product-7" src="./Images/65W-Fast-Charger.jpg" alt="65W Fast Charger">
 
     <!-- Product 8 — Wireless Charger Pad -->
-    <img id="img-product-8" src="./Images/Wireless-Charger-Pad.jpg"
-      alt="Wireless Charger Pad">
+    <img id="img-product-8" src="./Images/Wireless-Charger-Pad.jpg" alt="Wireless Charger Pad">
 
     <!-- ══════════════════════════════════════════
        🎧 EARBUDS
   ══════════════════════════════════════════ -->
 
     <!-- Product 9 — TWS Wireless Earbuds -->
-    <img id="img-product-9" src="./Images/TWS-Wireless-Earbuds.jpg"
-      alt="TWS Wireless Earbuds">
+    <img id="img-product-9" src="./Images/TWS-Wireless-Earbuds.jpg" alt="TWS Wireless Earbuds">
 
     <!-- ══════════════════════════════════════════
        🎵 HEADPHONES
   ══════════════════════════════════════════ -->
 
     <!-- Product 10 — Over-Ear Headphones -->
-    <img id="img-product-10" src="./Images/Over-Ear-Headphones.jpg"
-      alt="Over-Ear Headphones">
+    <img id="img-product-10" src="./Images/Over-Ear-Headphones.jpg" alt="Over-Ear Headphones">
 
     <!-- ══════════════════════════════════════════
        📦 CASES
   ══════════════════════════════════════════ -->
 
     <!-- Product 11 — Phone Case Set -->
-    <img id="img-product-11" src="./Images/Phone-Case.jpg"
-      alt="Phone Case Set">
+    <img id="img-product-11" src="./Images/Phone-Case.jpg" alt="Phone Case Set">
 
     <!-- ══════════════════════════════════════════
        🔗 CABLES
   ══════════════════════════════════════════ -->
 
     <!-- Product 12 — USB-C Cable 3-Pack -->
-    <img id="img-product-12" src="./Images/USB-C-Cable.jpg"
-      alt="USB-C Cable 3-Pack">
+    <img id="img-product-12" src="./Images/USB-C-Cable.jpg" alt="USB-C Cable 3-Pack">
 
   </div>
 </body>
