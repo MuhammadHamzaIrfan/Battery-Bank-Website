@@ -3981,6 +3981,9 @@
           </div>
         </div>
         <div class="hero-img">
+          <!-- ============================================================
+             HERO IMAGE — Replace the src below with your own image URL
+        ============================================================ -->
           <img src="./Images/hero-image.png" alt="Latest Smartphones" id="hero-image">
         </div>
       </div>
@@ -4118,7 +4121,8 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <!-- Change logo/name below -->
-          <h2><i class="fa-solid fa-bolt"></i> Battery Bank</h2>
+          <h2><img src="./Images/Footer-logo.png" alt="Battery Bank Logo"
+              style="height: 40px; width: auto; object-fit: contain;"> Battery Bank</h2>
           <p>Your one-stop shop for the latest mobile devices, power banks, chargers and accessories at the best prices.
           </p>
           <div class="social-icons" style="margin-top:18px;">
@@ -4537,12 +4541,15 @@
               <!-- EasyPaisa -->
               <label class="payment-option" onclick="selectPayment('easypaisa')">
                 <input type="radio" name="payment" value="easypaisa" id="pay-ep">
-                <!-- ============================================================
-                   EASYPAISA LOGO — Replace src below
-              ============================================================ -->
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Easypaisa_logo.svg/200px-Easypaisa_logo.svg.png"
-                  alt="EasyPaisa" class="payment-logo" onerror="this.style.display='none'">
+
+                <img id="img-pay-easypaisa" src="./Images/Easypaisa-img.png" alt="EasyPaisa" class="payment-logo"
+                  onerror="this.onerror=null; this.src=''; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <!-- Fallback icon agar image load na ho -->
+                <div
+                  style="width:46px;height:30px;background:#1a9e5f;border-radius:5px;display:none;align-items:center;justify-content:center;flex-shrink:0;">
+                  <i class="fa-solid fa-mobile-screen-button" style="color:#fff;font-size:15px;"></i>
+                </div>
+
                 <div class="payment-info">
                   <h4>EasyPaisa</h4>
                   <p>Send payment to EasyPaisa account</p>
@@ -4552,12 +4559,15 @@
               <!-- JazzCash -->
               <label class="payment-option" onclick="selectPayment('jazzcash')">
                 <input type="radio" name="payment" value="jazzcash" id="pay-jc">
-                <!-- ============================================================
-                   JAZZCASH LOGO — Replace src below
-              ============================================================ -->
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/JazzCash_logo.svg/200px-JazzCash_logo.svg.png"
-                  alt="JazzCash" class="payment-logo" onerror="this.style.display='none'">
+
+                <img id="img-pay-jazzcash" src="./Images/Jazz-Cash-img.jpg" alt="JazzCash" class="payment-logo"
+                  onerror="this.onerror=null; this.src=''; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <!-- Fallback icon agar image load na ho -->
+                <div
+                  style="width:46px;height:30px;background:#e8232a;border-radius:5px;display:none;align-items:center;justify-content:center;flex-shrink:0;">
+                  <i class="fa-solid fa-mobile-screen-button" style="color:#fff;font-size:15px;"></i>
+                </div>
+
                 <div class="payment-info">
                   <h4>JazzCash</h4>
                   <p>Send payment to JazzCash account</p>
@@ -4567,13 +4577,36 @@
               <!-- Bank Transfer -->
               <label class="payment-option" onclick="selectPayment('bank')">
                 <input type="radio" name="payment" value="bank" id="pay-bank">
+
+                <img id="img-pay-bank" src="" alt="Bank Transfer" class="payment-logo" style="display:none;"
+                  onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <!-- Default bank icon (jab tak apni image na lago) -->
                 <div
                   style="width:46px;height:30px;background:var(--blue);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                   <i class="fa-solid fa-building-columns" style="color:#fff;font-size:15px;"></i>
                 </div>
+
                 <div class="payment-info">
                   <h4>Bank Transfer</h4>
                   <p>Direct bank transfer to our account</p>
+                </div>
+              </label>
+
+              <!-- ✅ COD — Cash on Delivery -->
+              <label class="payment-option" onclick="selectPayment('cod')">
+                <input type="radio" name="payment" value="cod" id="pay-cod">
+
+                <img id="img-pay-cod" src="" alt="Cash on Delivery" class="payment-logo" style="display:none;"
+                  onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <!-- Default COD icon -->
+                <div
+                  style="width:46px;height:30px;background:#16a34a;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <i class="fa-solid fa-money-bill-wave" style="color:#fff;font-size:15px;"></i>
+                </div>
+
+                <div class="payment-info">
+                  <h4>Cash on Delivery (COD)</h4>
+                  <p>Pay cash when your order arrives</p>
                 </div>
               </label>
 
@@ -4613,6 +4646,53 @@
 
 
   <!-- ================================================================
+     PAYMENT INFO MODAL
+     — EasyPaisa / JazzCash / Bank Transfer / COD Advance
+     — Order place hone ke BAAD dikhta hai
+================================================================ -->
+  <div class="modal-overlay" id="payment-info-modal">
+    <div class="modal-box" style="max-width:480px;text-align:left;padding:0;overflow:hidden;">
+
+      <!-- Header -->
+      <div id="pim-header"
+        style="padding:24px 26px 20px;background:linear-gradient(135deg,#1e3a8a,#1a56db);color:#fff;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+          <div id="pim-icon"
+            style="width:44px;height:44px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">
+            💳</div>
+          <div>
+            <h2 id="pim-title" style="font-size:17px;font-weight:800;margin-bottom:2px;">Payment Details</h2>
+            <p id="pim-subtitle" style="font-size:12.5px;opacity:0.85;">Complete your payment to confirm order</p>
+          </div>
+        </div>
+        <!-- Order ID -->
+        <div
+          style="background:rgba(255,255,255,0.15);border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;">
+          🧾 Order ID: <span id="pim-order-id">#BB-000000</span>
+        </div>
+      </div>
+
+      <!-- Body — Account Info -->
+      <div id="pim-body" style="padding:20px 26px 24px;">
+        <!-- Injected by JS -->
+      </div>
+
+      <!-- Footer Buttons -->
+      <div style="padding:0 26px 24px;display:flex;flex-direction:column;gap:10px;">
+        <button class="btn-blue btn-full" onclick="closePimModal()" style="padding:13px;">
+          <i class="fa-solid fa-check-circle"></i> OK, I Understand
+        </button>
+        <!-- WhatsApp screenshot share button -->
+        <a id="pim-whatsapp-btn" href="https://wa.me/923452288856" target="_blank"
+          style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#fff;padding:12px;border-radius:var(--radius);font-size:14px;font-weight:600;text-decoration:none;">
+          <i class="fa-brands fa-whatsapp" style="font-size:17px;"></i> Share Screenshot on WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================================================================
      ORDER SUCCESS MODAL
 ================================================================ -->
   <div class="modal-overlay" id="order-modal">
@@ -4621,7 +4701,7 @@
       <h2>Order Placed Successfully!</h2>
       <p>Thank you for shopping with Battery Bank. Your order has been received and is being processed.</p>
       <div class="order-id-box" id="order-id-display">Order ID: #BB-000000</div>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:24px;">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:24px;" id="order-modal-note">
         Payment instructions have been sent. Please complete payment to confirm your order.
       </p>
       <button class="btn-blue btn-full" onclick="closeOrderModal()">
@@ -4806,6 +4886,14 @@
         holder: "Battery Bank Store",  // Change to account holder name
         iban: "PK36HABB0000001123456702", // Change to your IBAN
         note: "Use Order ID as transfer reference"
+      },
+
+      /* ==================== COD ==================== */
+      cod: {
+        name: "Cash on Delivery",
+        advance: 1500,          // ← Advance amount (jab total >= minTotal)
+        minTotal: 3000,         // ← Is amount ya zyada par advance lena hoga
+        note: "Remaining amount payable in cash on delivery"
       }
     };
 
@@ -5513,7 +5601,7 @@
     function selectPayment(method) {
       selectedPayment = method;
       document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
-      const radios = { easypaisa: 'pay-ep', jazzcash: 'pay-jc', bank: 'pay-bank' };
+      const radios = { easypaisa: 'pay-ep', jazzcash: 'pay-jc', bank: 'pay-bank', cod: 'pay-cod' };
       const option = document.getElementById(radios[method]);
       if (option) {
         option.checked = true;
@@ -5523,8 +5611,66 @@
       const box = document.getElementById('payment-detail-box');
       box.classList.remove('hidden');
       const info = PAYMENT_INFO[method];
+      const total = getCartTotal();
 
-      if (method === 'bank') {
+      if (method === 'cod') {
+        /* ---- COD: advance check ---- */
+        const needsAdvance = total >= info.minTotal;
+
+        if (needsAdvance) {
+          box.style.cssText = 'border-color:#f59e0b; background:#fffbeb;';
+          box.innerHTML = `
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div style="width:36px;height:36px;background:#f59e0b;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <i class="fa-solid fa-hand-holding-dollar" style="color:#fff;font-size:16px;"></i>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:800;color:#92400e;">Advance Payment Required</div>
+            <div style="font-size:12px;color:#b45309;">Advance required to confirm your COD order</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid #fde68a;display:flex;flex-direction:column;gap:7px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:#6b7280;">Advance Amount</span>
+            <span style="font-size:16px;font-weight:900;color:#92400e;">PKR ${info.advance.toLocaleString('en-PK')}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:#6b7280;">Remaining on Delivery</span>
+            <span style="font-size:14px;font-weight:700;color:#374151;">PKR ${(total - info.advance).toLocaleString('en-PK')}</span>
+          </div>
+          <div style="height:1px;background:#fde68a;margin:2px 0;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;font-weight:700;color:#374151;">Order Total</span>
+            <span style="font-size:14px;font-weight:800;color:#374151;">PKR ${total.toLocaleString('en-PK')}</span>
+          </div>
+        </div>
+        <p style="font-size:12px;color:#b45309;margin-top:10px;display:flex;align-items:center;gap:5px;">
+          <i class="fa-solid fa-circle-info"></i>
+          Advance: EasyPaisa / JazzCash / Bank Transfer
+        </p>`;
+        } else {
+          box.style.cssText = 'border-color:#16a34a; background:#f0fdf4;';
+          box.innerHTML = `
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+          <div style="width:36px;height:36px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <i class="fa-solid fa-truck-fast" style="color:#fff;font-size:15px;"></i>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:800;color:#166534;">Cash on Delivery</div>
+            <div style="font-size:12px;color:#15803d;">Pay cash when order arrives</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid #bbf7d0;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:13px;color:#6b7280;">Order Total</span>
+          <span style="font-size:16px;font-weight:900;color:#166534;">PKR ${total.toLocaleString('en-PK')}</span>
+        </div>
+        <p style="font-size:12px;color:#15803d;margin-top:10px;display:flex;align-items:center;gap:5px;">
+          <i class="fa-solid fa-circle-check"></i>
+          Pay cash upon delivery. No advance required.
+        </p>`;
+        }
+      } else if (method === 'bank') {
+        box.style.borderColor = '';
         box.innerHTML = `
       <strong>🏦 Bank Transfer Details:</strong><br>
       Bank: <strong>${info.bank}</strong><br>
@@ -5533,6 +5679,7 @@
       IBAN: <strong>${info.iban}</strong><br>
       <em style="font-size:12px;color:var(--text-muted);">Note: ${info.note}</em>`;
       } else {
+        box.style.borderColor = '';
         box.innerHTML = `
       <strong>📱 ${info.name} Payment Details:</strong><br>
       Send to Number: <strong>${info.account}</strong><br>
@@ -5589,8 +5736,188 @@
       // Clear cart
       cart = []; saveCart(); updateCartBadge();
 
-      // Show success modal
-      document.getElementById('order-id-display').textContent = 'Order ID: #' + orderId;
+      // ---- Show payment info popup BEFORE success modal ----
+      showPaymentInfoModal(orderId, order.total, selectedPayment);
+    }
+
+    /* ================================================================
+       PAYMENT INFO MODAL — Order ke baad account details dikhao
+    ================================================================ */
+    function showPaymentInfoModal(orderId, total, method) {
+      const info = PAYMENT_INFO[method];
+      const modal = document.getElementById('payment-info-modal');
+      const header = document.getElementById('pim-header');
+      const body = document.getElementById('pim-body');
+
+      document.getElementById('pim-order-id').textContent = '#' + orderId;
+
+      /* ---- COD ---- */
+      if (method === 'cod') {
+        const needsAdvance = total >= info.minTotal;
+
+        if (needsAdvance) {
+          /* COD with advance — professional popup */
+          header.style.background = 'linear-gradient(135deg,#d97706,#f59e0b)';
+          document.getElementById('pim-icon').textContent = '💰';
+          document.getElementById('pim-title').textContent = 'Advance Payment Required';
+          document.getElementById('pim-subtitle').textContent = 'Advance required to confirm your COD order';
+
+          body.innerHTML = `
+        <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:10px;padding:16px;margin-bottom:16px;">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:13px;color:#6b7280;">Order Total</span>
+              <span style="font-size:15px;font-weight:800;color:#374151;">PKR ${total.toLocaleString('en-PK')}</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:13px;color:#6b7280;">Remaining on Delivery</span>
+              <span style="font-size:14px;font-weight:700;color:#374151;">PKR ${(total - info.advance).toLocaleString('en-PK')}</span>
+            </div>
+            <div style="height:1.5px;background:#fde68a;"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:14px;font-weight:700;color:#92400e;">Pay Advance Now</span>
+              <span style="font-size:22px;font-weight:900;color:#d97706;">PKR ${info.advance.toLocaleString('en-PK')}</span>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;">
+          Send advance via any of these methods:
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:9px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;background:#16a34a;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <i class="fa-solid fa-mobile-screen-button" style="color:#fff;font-size:14px;"></i>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.5px;">EasyPaisa / JazzCash</div>
+              <div style="font-size:16px;font-weight:900;color:#111827;">0345-2288856</div>
+              <div style="font-size:12px;color:#6b7280;">Battery Bank Store</div>
+            </div>
+          </div>
+          <div style="background:#eff6ff;border:1.5px solid #93c5fd;border-radius:9px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;background:#1a56db;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <i class="fa-solid fa-building-columns" style="color:#fff;font-size:14px;"></i>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;">Bank Transfer — HBL</div>
+              <div style="font-size:13px;font-weight:800;color:#111827;">12345-678901234-5</div>
+              <div style="font-size:12px;color:#6b7280;">Battery Bank Store</div>
+              <div style="font-size:11.5px;color:#6b7280;">IBAN: PK36HABB0000001123456702</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px 13px;background:#fff7ed;border-radius:8px;border:1px solid #fed7aa;display:flex;align-items:center;gap:8px;">
+          <i class="fa-brands fa-whatsapp" style="color:#25d366;font-size:18px;flex-shrink:0;"></i>
+          <p style="font-size:12.5px;color:#9a3412;">
+            After payment, share screenshot on WhatsApp: <strong>0345-2288856</strong>
+          </p>
+        </div>`;
+
+        } else {
+          /* COD without advance */
+          header.style.background = 'linear-gradient(135deg,#166534,#16a34a)';
+          document.getElementById('pim-icon').textContent = '🚚';
+          document.getElementById('pim-title').textContent = 'Cash on Delivery Confirmed!';
+          document.getElementById('pim-subtitle').textContent = 'Pay cash when order arrives';
+
+          body.innerHTML = `
+        <div style="background:#dcfce7;border-radius:10px;padding:16px;margin-bottom:14px;border:1.5px solid #86efac;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:#166534;font-weight:700;">Remaining on Delivery Total</span>
+            <span style="font-size:22px;font-weight:900;color:#166534;">PKR ${total.toLocaleString('en-PK')}</span>
+          </div>
+        </div>
+        <div style="background:#f9fafb;border-radius:9px;padding:13px 15px;border:1.5px solid var(--border);">
+          <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;">📦 Delivery Info</div>
+          <p style="font-size:13px;color:var(--text);">
+            Delivery within 2-3 business days.<br>
+            For any queries: <strong>WhatsApp 0345-2288856</strong>
+          </p>
+        </div>`;
+        }
+
+        /* COD pe WhatsApp button hide karo agar advance nahi */
+        document.getElementById('pim-whatsapp-btn').style.display = needsAdvance ? 'flex' : 'none';
+
+      } else {
+        /* ---- EasyPaisa / JazzCash / Bank Transfer ---- */
+        header.style.background = 'linear-gradient(135deg,#1e3a8a,#1a56db)';
+
+        if (method === 'easypaisa') {
+          document.getElementById('pim-icon').textContent = '📱';
+          document.getElementById('pim-title').textContent = 'EasyPaisa Payment';
+          document.getElementById('pim-subtitle').textContent = 'Send payment to the number below';
+          body.innerHTML = `
+        <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:16px;margin-bottom:14px;">
+          <div style="font-size:12px;font-weight:700;color:#15803d;margin-bottom:8px;">📱 EASYPAISA ACCOUNT</div>
+          <div style="font-size:22px;font-weight:900;color:#111827;margin-bottom:4px;">${PAYMENT_INFO.easypaisa.account}</div>
+          <div style="font-size:13.5px;font-weight:600;color:var(--text-muted);">Account: ${PAYMENT_INFO.easypaisa.holder}</div>
+        </div>
+        <div style="background:#fffbeb;border:1.5px solid #fcd34d;border-radius:9px;padding:13px 15px;">
+          <p style="font-size:13px;color:#92400e;">
+            💳 Amount: <strong>PKR ${total.toLocaleString('en-PK')}</strong><br>
+            📋 Reference: <strong>${orderId}</strong><br>
+            📸 After payment, share screenshot on WhatsApp.
+          </p>
+        </div>`;
+
+        } else if (method === 'jazzcash') {
+          document.getElementById('pim-icon').textContent = '📱';
+          document.getElementById('pim-title').textContent = 'JazzCash Payment';
+          document.getElementById('pim-subtitle').textContent = 'Send payment to the number below';
+          body.innerHTML = `
+        <div style="background:#fff7ed;border:1.5px solid #fdba74;border-radius:10px;padding:16px;margin-bottom:14px;">
+          <div style="font-size:12px;font-weight:700;color:#c2410c;margin-bottom:8px;">📱 JAZZCASH ACCOUNT</div>
+          <div style="font-size:22px;font-weight:900;color:#111827;margin-bottom:4px;">${PAYMENT_INFO.jazzcash.account}</div>
+          <div style="font-size:13.5px;font-weight:600;color:var(--text-muted);">Account: ${PAYMENT_INFO.jazzcash.holder}</div>
+        </div>
+        <div style="background:#fffbeb;border:1.5px solid #fcd34d;border-radius:9px;padding:13px 15px;">
+          <p style="font-size:13px;color:#92400e;">
+            💳 Amount: <strong>PKR ${total.toLocaleString('en-PK')}</strong><br>
+            📋 Reference: <strong>${orderId}</strong><br>
+            📸 After payment, share screenshot on WhatsApp.
+          </p>
+        </div>`;
+
+        } else if (method === 'bank') {
+          document.getElementById('pim-icon').textContent = '🏦';
+          document.getElementById('pim-title').textContent = 'Bank Transfer';
+          document.getElementById('pim-subtitle').textContent = 'Transfer to the bank account below';
+          body.innerHTML = `
+        <div style="background:#eff6ff;border:1.5px solid #93c5fd;border-radius:10px;padding:16px;margin-bottom:14px;">
+          <div style="font-size:12px;font-weight:700;color:#1d4ed8;margin-bottom:8px;">🏦 BANK ACCOUNT DETAILS</div>
+          <table style="width:100%;font-size:13px;border-collapse:collapse;">
+            <tr><td style="padding:4px 0;color:var(--text-muted);width:120px;">Bank</td><td style="font-weight:700;">${PAYMENT_INFO.bank.bank}</td></tr>
+            <tr><td style="padding:4px 0;color:var(--text-muted);">Account No</td><td style="font-weight:700;">${PAYMENT_INFO.bank.account}</td></tr>
+            <tr><td style="padding:4px 0;color:var(--text-muted);">Account Name</td><td style="font-weight:700;">${PAYMENT_INFO.bank.holder}</td></tr>
+            <tr><td style="padding:4px 0;color:var(--text-muted);">IBAN</td><td style="font-weight:700;word-break:break-all;">${PAYMENT_INFO.bank.iban}</td></tr>
+          </table>
+        </div>
+        <div style="background:#fffbeb;border:1.5px solid #fcd34d;border-radius:9px;padding:13px 15px;">
+          <p style="font-size:13px;color:#92400e;">
+            💳 Amount: <strong>PKR ${total.toLocaleString('en-PK')}</strong><br>
+            📋 Reference: <strong>${orderId}</strong><br>
+            📸 After transfer, share screenshot on WhatsApp.
+          </p>
+        </div>`;
+        }
+
+        document.getElementById('pim-whatsapp-btn').style.display = 'flex';
+      }
+
+      modal.classList.add('open');
+    }
+
+    function closePimModal() {
+      document.getElementById('payment-info-modal').classList.remove('open');
+      /* Ab success modal dikhao */
+      const orderId = document.getElementById('pim-order-id').textContent;
+      document.getElementById('order-id-display').textContent = 'Order ID: ' + orderId;
+      if (selectedPayment === 'cod') {
+        document.getElementById('order-modal-note').textContent = 'Your COD order is confirmed. Pay cash upon delivery.';
+      } else {
+        document.getElementById('order-modal-note').textContent = 'Please complete payment and share screenshot on WhatsApp: 0345-2288856';
+      }
       document.getElementById('order-modal').classList.add('open');
     }
 
